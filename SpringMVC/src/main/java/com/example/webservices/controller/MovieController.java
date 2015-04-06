@@ -26,4 +26,5 @@ public class MovieController {
  
 	}
  
+	//You can test your rest webservice now :: http://localhost:8080/SpringMVC/movie/IronMan
 }
