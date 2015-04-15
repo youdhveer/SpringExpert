@@ -6,6 +6,7 @@ This is a spring repository to guide you from beginner to expert.
 3. Install Apache Tomact 7
 4. Configure all these in user environmental variables
     Example -- 
+
         CATALINA_HOME ==  C:\Apache Software Foundations\apache-tomcat-7.0.57 
         
         M2_HOME       ==  C:\Apache Software Foundations\apache-maven-3.2.1
