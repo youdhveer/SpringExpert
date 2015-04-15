@@ -4,9 +4,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Spring Test</title>
 </head>
 <body>
+
+<br/>
+
+<table>
+ <tr>
+  <td>Example 1</td><td><a href="/SpringMVC/customer">Form based implementation :: Add a customer</a></td>
+ </tr>
+ <tr>
+  <td>Example 2</td><td><a href="/SpringMVC/movie/">REST based implementation: GET Movie</a></td>
+ </tr>
+</table>
 
 </body>
 </html>

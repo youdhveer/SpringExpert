@@ -15,7 +15,9 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import com.example.customer.model.Customer;
 
+@SuppressWarnings("deprecation")
 public class CustomerController extends SimpleFormController{
+	
 	
 	public CustomerController(){
 		setCommandClass(Customer.class);
@@ -33,7 +35,7 @@ public class CustomerController extends SimpleFormController{
 		//put the model in session, so that it's able pass to another controller
 		request.getSession().setAttribute("customer",customer);
 				
-		return new ModelAndView("customerSuccessRedirect");
+		return new ModelAndView("CustomerSuccess","customer",customer);
 	
 	}
 	

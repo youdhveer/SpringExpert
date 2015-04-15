@@ -12,22 +12,28 @@
 
     <!-- REST web services -->
 	<context:component-scan base-package="com.example.webservices.controller" />
-	<mvc:annotation-driven />	 
+	<mvc:annotation-driven />
     <!-- REST web services ends -->
 	
-	<!--  Bean based XML mapping -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/> -->
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+    
+	<!-- Form submit example - Controller -->
 	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
 	
 	<bean class="com.example.customer.controller.CustomerController">
-		<property name="formView" value="CustomerForm" />
-		<property name="successView" value="customerSuccessRedirect" />	
-		<!-- Map a validator -->
+		<property name="formView" value="CustomerForm" /> <!-- If failed, forward to  CustomerForm.jsp -->
+		<property name="successView" value="CustomerSuccess" />	 <!-- If success, forward to  CustomerSuccess.jsp -->
+		<!-- <property name="successView" value="customerSuccessRedirect" /> -->
+		<!-- Validate customer form using validator -->
 		<property name="validator">
 			<bean class="com.example.customer.validator.CustomerValidator" />
 		</property>
 	</bean>
+  <!-- Form submit example - Controller ends-->
     
-    <!-- Redirect Controller -->
+   <!--  
 	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
@@ -40,7 +46,8 @@
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
 	    <property name="viewName" value="CustomerSuccess" />
     </bean>
-	 
+	  -->
+	  
  	<!-- Register the Customer.properties -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -58,11 +65,4 @@
           <property name="order" value="1" />
     </bean>
 
-	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
-	   <property name="location">
-	       <value>/WEB-INF/spring-views.xml</value>
-	   </property>
-	   <property name="order" value="0" />
-	</bean>
-	
 </beans>

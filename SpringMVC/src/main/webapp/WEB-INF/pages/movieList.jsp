@@ -9,6 +9,7 @@
 <body>
 
 <h1>Spring 3 MVC REST web service</h1>
+<h2>REST URL example :: http://localhost:8080/SpringMVC/movie/IronMan</h2>
  
 	<h2>Movie Name : ${movie}</h2>	
 	

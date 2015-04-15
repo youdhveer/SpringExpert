@@ -21,7 +21,7 @@ public class MovieController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getDefaultMovie(ModelMap model) {
  
-		model.addAttribute("movie", "this is default movie");
+		model.addAttribute("movie", "This is default movie.");
 		return "movieList";
  
 	}
