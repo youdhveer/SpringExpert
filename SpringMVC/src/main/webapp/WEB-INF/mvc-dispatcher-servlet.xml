@@ -2,6 +2,7 @@
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" 
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -12,6 +13,8 @@
 
     <!-- REST web services -->
 	<context:component-scan base-package="com.example.webservices.controller" />
+	<context:component-scan base-package="com.example.mongodb.controller" />
+	<context:component-scan base-package="com.example.mongodb.controller.dao" />
 	<mvc:annotation-driven />
     <!-- REST web services ends -->
 	
@@ -31,22 +34,7 @@
 			<bean class="com.example.customer.validator.CustomerValidator" />
 		</property>
 	</bean>
-  <!-- Form submit example - Controller ends-->
-    
-   <!--  
-	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <props>
-                <prop key="/CustomerSuccess.htm">customerSuccessController</prop>
-            </props>
-        </property>
-    </bean>
-	
-	<bean id="customerSuccessController" 
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-	    <property name="viewName" value="CustomerSuccess" />
-    </bean>
-	  -->
+  <!-- Form submit example - Controller ends-->    
 	  
  	<!-- Register the Customer.properties -->
 	<bean id="messageSource"
@@ -54,6 +42,22 @@
 		<property name="basename" value="com/example/customer/properties/Customer" />
 	</bean>
  	
+ 	
+ 	<!-- Factory bean that creates the Mongo instance --> 
+	<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
+		<property name="host" value="localhost" />
+	</bean>                    
+	
+	<!-- MongoTemplate for connecting and quering the documents in the database -->
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">  
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="testdb" />
+	</bean>
+	
+	<bean id="userService" class="com.example.mongodb.service.UserService" />
+	<bean id="sequenceDao" class="com.example.mongodb.dao.impl.SequenceDaoImpl" />
+	
+
 	<bean id="viewResolver"
 	      class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
           <property name="prefix">

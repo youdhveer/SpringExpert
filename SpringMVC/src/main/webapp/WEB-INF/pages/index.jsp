@@ -12,10 +12,15 @@
 
 <table>
  <tr>
-  <td>Example 1</td><td><a href="/SpringMVC/customer">Form based implementation :: Add a customer</a></td>
+  <td>Example 1</td><td><a href="customer">Form based implementation :: Add a customer</a></td>
  </tr>
+ <tr></tr>
  <tr>
-  <td>Example 2</td><td><a href="/SpringMVC/movie/">REST based implementation: GET Movie</a></td>
+  <td>Example 2</td><td><a href="movie/">REST based implementation: GET Movie</a></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>Example 3</td><td><a href="user">Spring with Mongo DB : Create a user</a></td>
  </tr>
 </table>
 
