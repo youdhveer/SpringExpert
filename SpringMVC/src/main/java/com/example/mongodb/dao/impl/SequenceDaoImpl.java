@@ -3,6 +3,7 @@ package com.example.mongodb.dao.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -16,10 +17,10 @@ import com.example.mongodb.exception.SequenceException;
 @Repository
 public class SequenceDaoImpl implements SequenceDao {
  
-	@Autowired
-	private MongoOperations mongoOperation;
+	/*@Autowired
+	private MongoOperations mongoOperation;*/
  
-	public long getNextSequenceId(String key) throws SequenceException {
+	public long getNextSequenceId(String key,MongoTemplate mongoTemplate) throws SequenceException {
  
 	  //get sequence id
 	  Query query = new Query(Criteria.where("_id").is(key));
@@ -34,7 +35,7 @@ public class SequenceDaoImpl implements SequenceDao {
  
 	  //this is the magic happened.
 	  SequenceId seqId = 
-            mongoOperation.findAndModify(query, update, options, SequenceId.class);
+			  mongoTemplate.findAndModify(query, update, options, SequenceId.class);
  
 	  //if no id, throws SequenceException
           //optional, just a way to tell user when the sequence id is failed to generate.

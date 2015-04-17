@@ -17,8 +17,8 @@ public class UserService {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
-	/*@Autowired
-	private SequenceDao sequenceDao;*/
+	@Autowired
+	private SequenceDao sequenceDao;
 
 	/*@Autowired
 	private UserDAO userDAO;*/
@@ -30,8 +30,8 @@ public class UserService {
 		if (!mongoTemplate.collectionExists(User.class)) { 
 			mongoTemplate.createCollection(User.class);
 		}                       
-		user.setId(UUID.randomUUID().toString());
-		//user.setId(sequenceDao.getNextSequenceId(USER_SEQ_KEY)+"");	
+		//user.setId(UUID.randomUUID().toString());
+		user.setId(sequenceDao.getNextSequenceId(USER_SEQ_KEY,mongoTemplate)+"");	
 		mongoTemplate.insert(user, COLLECTION_NAME); //------3)
 	}
 
