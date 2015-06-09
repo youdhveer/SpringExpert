@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+     <link rel="stylesheet" type="text/css" href="jquery.dialogbox.css">
+</head>
+<body>
+
+<input type="button" id="btn-btn" value="Done Troubleshoot"/>
+<div id="btn-dialogBox"></div>
+<script src="jquery-1.11.2.min.js"></script>
+<script src="jquery.dialogBox.js"></script>
+<script type="text/javascript">
+	$(function(){
+		//btn dialogBox
+		$('#btn-btn').click(function(){
+			$('#btn-dialogBox').dialogBox({
+				hasClose: true,
+				hasBtn: true,				
+				confirm: function(){
+					//alert('this is callback function');
+				},
+				cancelValue: 'CANCEL',
+				confirmValue: 'SUBMIT',
+				title: '',
+				content: $('#model_content_div').html()
+			});
+		})
+
+	})
+</script>
+    <div id="model_content_div" style="display:none">
+	    <p class="heading_text">I believe that I have resolved the issue and the customer will not need to call back in next 7 days.</p>
+        <p><input type="radio" name="doneTroubleShootRadio" id="yes" value="Yes" ><label for="yes">Yes</label></p>
+		<p><input type="radio" name="doneTroubleShootRadio" id="no" value="No" ><label for="no">No</label>
+		   <select class="overlay-dd-select">
+			  <option value="-1"></option>
+			  <option value="volvo">Volvo</option>
+			  <option value="saab">Saab</option>
+			  <option value="opel">Opel</option>
+			  <option value="audi">Audi</option>
+			</select>
+		</p>
+    </div>
+</body>
+</html>
