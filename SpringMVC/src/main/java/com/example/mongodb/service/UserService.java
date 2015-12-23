@@ -1,14 +1,14 @@
 package com.example.mongodb.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.mongodb.dao.SequenceDao;
-import com.example.mongodb.dao.UserDAO;
 import com.example.mongodb.entity.User;
 
 @Repository
@@ -37,5 +37,13 @@ public class UserService {
 
 	public List<User> listUsers() {
 		return mongoTemplate.findAll(User.class, COLLECTION_NAME);
+	}
+	
+	public List<User> searchUsers(String searchText){		
+		Query query = new Query();
+		//query.addCriteria(Criteria.where("name").regex("D.*G", "i"));
+		query.addCriteria(Criteria.where("name").regex(searchText));		 
+		List<User> userList = mongoTemplate.find(query, User.class);
+		return userList;
 	}
 }

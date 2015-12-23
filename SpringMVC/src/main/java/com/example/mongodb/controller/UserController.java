@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -31,4 +33,10 @@ public class UserController {
 		 userService.addUser(user); 
 		 return new RedirectView("/SpringMVC/user");	  
 	 }
+	 
+	 @RequestMapping(value = "/user/search", method = RequestMethod.POST)  
+	 public String getSearchUserList(@RequestParam(value="searchText") String searchText,ModelMap model) {  
+		 model.addAttribute("userList", userService.searchUsers(searchText));  
+		 return "userList"; 
+	 }  
 }

@@ -11,8 +11,7 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-    <!-- REST web services -->
-	<context:component-scan base-package="com.example.webservices.controller" />
+    <!-- REST web services -->	
 	<context:component-scan base-package="com.example.mongodb.controller" />
 	<context:component-scan base-package="com.example.mongodb.controller.dao" />
 	<mvc:annotation-driven />
@@ -55,6 +54,7 @@
 	</bean>
 	
 	<bean id="userService" class="com.example.mongodb.service.UserService" />
+	<bean id="stockService" class="com.example.mongodb.service.StockService" />
 	<bean id="sequenceDao" class="com.example.mongodb.dao.impl.SequenceDaoImpl" />
 	
 

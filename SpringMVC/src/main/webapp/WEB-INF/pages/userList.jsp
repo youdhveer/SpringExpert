@@ -13,13 +13,32 @@
   	<form action="user/saveUser" method="post">
 		<input type="hidden" name="id">
 		<label for="name">User name</label>
-		<input type="text" id="name" name="name"/> 
+		<input type="text"  name="name"/> 
 		<label for="age">Age</label>
-		<input type="text" id="age" name="age"/>
-		<input type="submit" value="Submit"/>
+		<input type="text"  name="age"/>
+		<input type="submit" value="Add user"/>
 	</form>
-
+	<br>
+	<form action="user/search" method="post">		
+		<label for="searchText">Search User (By Name)</label>
+		<input type="text" name="searchText"/> 
+		<!-- <label for="age">Age</label>
+		<input type="text" name="age"/> -->
+		<input type="submit" value="Search"/>
+	</form>
+	<br>
+	<div>Search result :: 
+		<span style="color:red;"><c:if test="${!(empty userList)}">${userList.size()}</c:if>
+								
+		</span>
+	</div>
+	<br>
+	<h5>List of users</h5>
     <table border="1">
+    	<thead>
+    	<tr><td>Name</td><td>Age</td></tr>
+    	</thead>
+    	
 		<c:forEach var="user" items="${userList}"> 
 		<tr>
 		<td>${user.name}</td> 
