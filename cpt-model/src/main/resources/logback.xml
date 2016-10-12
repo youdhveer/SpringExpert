@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- configuration file for LogBack (slf4J implementation)
+See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-through-the-java-loggers/ -->
+<configuration scan="true" scanPeriod="30 seconds">
+
+	<property name="DEV_HOME" value="c:/logs" />
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    
+    <appender name="FILE-THREAD" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+			<key>logFileName</key>
+			<defaultValue>head0</defaultValue>
+	  </discriminator>
+	  <sift>
+		<appender name="FILE-${logFileName}"
+			class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${DEV_HOME}/cptApp.log</file>
+
+			<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss} [%thread] %level %logger{35} - %msg%n
+				</Pattern>
+			</encoder>
+
+			<rollingPolicy
+				class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+				<FileNamePattern>${DEV_HOME}/cptApp.%i.log.zip
+				</FileNamePattern>
+				<MinIndex>1</MinIndex>
+				<MaxIndex>10</MaxIndex>
+			</rollingPolicy>
+
+			<triggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+				<MaxFileSize>10MB</MaxFileSize>
+			</triggeringPolicy>
+		</appender>
+	  </sift>
+	</appender>
+	
+
+	<appender name="FILE_APPENDER" class="ch.qos.logback.core.FileAppender">
+		<file>${DEV_HOME}/cptApp.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%X{clientName}, [%thread], %-5level %logger{36} - %msg%n
+			</Pattern>
+		</encoder>		
+	</appender>	
+	
+    
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+			</Pattern>
+		</layout>
+	</appender>
+	
+	<appender name="FILE-AUDIT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${DEV_HOME}/cptApp-debug.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} - %msg%n
+			</Pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${DEV_HOME}/archived/cptApp-debug.%d{yyyy-MM-dd}.%i.log
+                        </fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+	</appender>
+
+	<appender name="FILE-ERROR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${DEV_HOME}/cptApp-error.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} - %msg%n
+			</Pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${DEV_HOME}/archived/cptApp-error.%d{yyyy-MM-dd}.%i.log
+                        </fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+	</appender>
+	
+	<!-- Send logs to both console and file audit -->
+	<logger name="com.cpt" level="INFO"
+		additivity="false">
+		
+		<appender-ref ref="FILE-THREAD" />
+		<appender-ref ref="FILE-AUDIT" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE_APPENDER" />
+	</logger>
+
+	<root level="ERROR">
+		<appender-ref ref="FILE-ERROR" />
+	</root>
+	
+</configuration>
